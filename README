@@ -1,0 +1,44 @@
+# CUDA Multi-GPU Maximum Finder
+
+This program uses CUDA and splits an array across multiple GPUs to find
+the maximum value in the array.
+
+## Part 1: How to Run the Code
+
+To compile the code, you need to have NVCC (Nvidia CUDA Compiler) installed
+on your system. Once you have NVCC installed, you can compile the code with
+the following command:
+
+```
+nvcc -o max_finder max_finder.cu
+```
+You can run the compiled program with the following command:
+```
+./max_finder <matrix size> <maximum number>
+```
+Replace `<matrix size>` with the size of the matrix and `<maximum number>`
+with the expected maximum number. For example:
+```
+./max_finder 1048576 1000.0
+```
+
+## Part 2: How the Code Works
+
+The program starts by generating a large array of random floating-point numbers.
+The size of the array is taken as input from the user. A random index in this array
+is overwritten with a known maximum number, which is also provided by the user.
+
+The program then retrieves the number of GPUs available on the system and splits
+the array into that many chunks. Each chunk of the array is processed on a
+different GPU.
+
+The program uses a CUDA kernel to find the maximum value in each chunk of the array.
+Each GPU finds the maximum value in its chunk of the array independently.
+
+Finally, the program compares the maximum values found by each GPU and identifies the
+overall maximum value. This maximum value is then printed to the console. The expected
+maximum value (the value input by the user) is also printed for comparison.
+
+This approach leverages the parallel processing power of multiple GPUs to find the
+maximum value in a large array. It is a prime example of how one can use CUDA and
+multiple GPUs for high-performance computing tasks.
